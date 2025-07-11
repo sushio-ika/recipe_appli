@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
 
 namespace recipe_save
 {
@@ -29,7 +30,10 @@ namespace recipe_save
                 this.Size = workingArea.Size;
             }
         }
-
+        private int textBoxCount = 0;
+        private int startY = 200;
+        // 各テキストボックス間の間隔
+        private const int VERTICAL_SPACING = 40;
         private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=recipeDB;Integrated Security=True;";
 
         public bool AddRecipe(string recipeName)
@@ -77,7 +81,7 @@ namespace recipe_save
         private void button1_Click(object sender, EventArgs e)
         {
             string recipeName = textBox1.Text; // テキストボックスからレシピ名を取得
-            string 
+            string recipeTime = textBox3.Text; // テキストボックスからレシピ時間を取得
             if (string.IsNullOrWhiteSpace(recipeName))
             {
                 MessageBox.Show("レシピ名を入力してください。");
@@ -94,6 +98,51 @@ namespace recipe_save
             else
             {
                 MessageBox.Show("レシピの保存に失敗しました。詳細をコンソールで確認してください。");
+            }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            string path; //パス名(ファイル名)
+                         //オープンファイルダイアログでファイル選択し「OK」が押されたら
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                path = openFileDialog1.FileName; //パスを取得しpathに格納
+
+            }
+            else
+            {
+                return; //キャンセルが押されたらここで処理終了
+
+            }
+
+            pictureBox1.ImageLocation = path; //選択した画像のパスをpictureBox1に設定
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            TextBox newTextBox = new TextBox();
+
+            // 2. プロパティを設定
+            newTextBox.Name = "textBoxDynamic_" + textBoxCount; // ユニークな名前を付ける
+            newTextBox.Location = new Point(
+                this.textBox2.Left, // ボタンと同じX座標に配置
+                startY + (textBoxCount * VERTICAL_SPACING) // 前のテキストボックスの下に配置
+            );
+            newTextBox.Font = textBox2.Font; // 既存のテキストボックスと同じフォントにする
+            newTextBox.Size = textBox2.Size; // 既存のテキストボックスと同じサイズにする
+            newTextBox.Anchor = AnchorStyles.Left | AnchorStyles.Right; // フォームのリサイズに追従させる（任意）
+
+            // 4. フォームに新しいテキストボックスを追加
+            this.Controls.Add(newTextBox);
+
+            // 5. カウントを増やす
+            textBoxCount++;
+
+            // フォームの高さが足りなくなる場合に、自動的にフォームを拡張する（任意）
+            if (newTextBox.Bottom + 10 > this.ClientSize.Height)
+            {
+                this.ClientSize = new Size(this.ClientSize.Width, newTextBox.Bottom + 10);
             }
         }
     }
