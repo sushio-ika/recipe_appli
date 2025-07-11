@@ -77,6 +77,7 @@ namespace recipe_save
         private void button1_Click(object sender, EventArgs e)
         {
             string recipeName = textBox1.Text; // テキストボックスからレシピ名を取得
+            string 
             if (string.IsNullOrWhiteSpace(recipeName))
             {
                 MessageBox.Show("レシピ名を入力してください。");
