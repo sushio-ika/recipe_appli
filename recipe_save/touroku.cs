@@ -16,6 +16,18 @@ namespace recipe_save
         public touroku()
         {
             InitializeComponent();
+            if (title.windowsize == 0)
+            {
+                this.Size = new Size(1000, 600);
+            }
+            else
+            {
+                Screen currentScreen = Screen.FromControl(this);
+                Rectangle workingArea = currentScreen.WorkingArea;
+
+                this.Location = workingArea.Location;
+                this.Size = workingArea.Size;
+            }
         }
 
         private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=recipeDB;Integrated Security=True;";

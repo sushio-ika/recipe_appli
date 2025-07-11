@@ -11,68 +11,110 @@ using System.Windows.Forms;
 
 namespace recipe_save
 {
-    public partial class Form1 : Form
+    public partial class title : Form
     {
+        public static int windowsize = 0;
+
         private static string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=recipeDB;Integrated Security=True;";
 
-        public static void Save_Recipe()
+        public class RecipeDisplayModel
         {
+            public int RecipeID { get; set; }
+            public string RecipeName { get; set; }
+        }
+
+        public static void Load_RecipeList(DataGridView dataGridView1)
+        {
+            List<RecipeDisplayModel> recipes = new List<RecipeDisplayModel>(); // データを格納するリスト
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
-                    Console.WriteLine("データベースに接続しました。ユーザー情報を取得します...");
+                    Console.WriteLine("データベースに接続しました。レシピ情報を取得します..."); // デバッグ用
 
-                    // 実行したいSQLクエリ
-                    string sql = "SELECT recipeID, recipeName FROM [dbo].[RECIPE.Table]";
+                    string sql = "SELECT recipeID, recipeName FROM [dbo].[RECIPE.Table] ORDER BY recipeID ASC"; // 順序を追加
 
-                    // SqlCommand オブジェクトを作成
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        // SqlDataReader を使用して結果を読み込む
+                        // ここで command.Parameters.AddWithValue() は不要（SQLがパラメーターを使っていないため）
+                        // 以前のコードでここにあった行は削除
+
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            command.Parameters.AddWithValue("@recipeID", 1); // 例としてパラメータを追加
-                            command.Parameters.AddWithValue("@recipeName", "サンプルレシピ"); // 例としてパラメータを追加
-
-                            Console.WriteLine("\n--- レシピ一覧 ---");
-                            // reader.Read() は、次の行が読み込めたら true を返す
                             while (reader.Read())
                             {
-                                // データの取得方法：
-                                // 1. 列のインデックスで取得 (例: reader.GetInt32(0))
-                                // 2. 列名で取得 (reader.GetOrdinal("列名") でインデックスを取得してから)
-                                int id = reader.GetInt32(reader.GetOrdinal("recipeID"));
-                                string name = reader.GetString(reader.GetOrdinal("recipeName"));
-
-                                Console.WriteLine($"ID: {id}, 料理名: {name}");
+                                // データを読み込み、モデルオブジェクトに格納し、リストに追加
+                                RecipeDisplayModel recipe = new RecipeDisplayModel
+                                {
+                                    RecipeID = reader.GetInt32(reader.GetOrdinal("recipeID")),
+                                    RecipeName = reader.GetString(reader.GetOrdinal("recipeName"))
+                                };
+                                recipes.Add(recipe);
                             }
                         }
+                    }
+
+                    // DataGridView にデータをバインド
+                    dataGridView1.DataSource = recipes;
+
+                    // DataGridView の列設定はデータバインド後、かつループ外で一度だけ行う
+                    if (dataGridView1.Columns.Contains("RecipeID"))
+                    {
+                        dataGridView1.Columns["RecipeID"].HeaderText = "レシピID";
+                        dataGridView1.Columns["RecipeID"].Width = 80; // 幅を固定するなど
+                    }
+                    if (dataGridView1.Columns.Contains("RecipeName"))
+                    {
+                        dataGridView1.Columns["RecipeName"].HeaderText = "レシピ名";
+                        dataGridView1.Columns["RecipeName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     }
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine($"データベースエラーが発生しました: {ex.Message}");
+                    MessageBox.Show($"データベースエラーが発生しました: {ex.Message}", "データベースエラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine($"データベースエラー: {ex.Message}"); // デバッグ用
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"予期せぬエラーが発生しました: {ex.Message}");
+                    MessageBox.Show($"予期せぬエラーが発生しました: {ex.Message}", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine($"予期せぬエラー: {ex.Message}"); // デバッグ用
                 }
             }
         }
-        public Form1()
+
+        public void ChangeWindowSize(int size)
+        {
+            if (size == 0)
+            {
+                this.Size = new Size(1000, 600);
+            }
+            else
+            {
+                Screen currentScreen = Screen.FromControl(this);
+                Rectangle workingArea = currentScreen.WorkingArea;
+
+                this.Location = workingArea.Location;
+                this.Size = workingArea.Size;
+            }
+            title_Load(null, null);
+        }
+        public title()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            ChangeWindowSize(windowsize);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void title_Load(object sender, EventArgs e)
         {
-            int width_size=this.Width;
-            int height_size=this.Height;
+            int width_size = this.Width;
+            int height_size = this.Height;
 
-            button1.Location = new Point(width_size / 2 - button1.Width / 2, height_size / 2 - button1.Height / 2);
-            Save_Recipe();
+            button1.Location = new Point(width_size / 2 - button1.Width / 2 - 400, height_size / 2 - button1.Height / 2 + 200);
+            dataGridView1.Location = new Point(width_size / 2 - dataGridView1.Width / 2, height_size / 2 - dataGridView1.Height / 2 + 50);
+            Load_RecipeList(dataGridView1);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -80,6 +122,19 @@ namespace recipe_save
             touroku form = new touroku();
             form.ShowDialog();
             this.Close();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex == 0)
+            {
+                windowsize = 0;
+            }
+            else
+            {
+                windowsize = 1;
+            }
+            ChangeWindowSize(windowsize);
         }
     }
 }

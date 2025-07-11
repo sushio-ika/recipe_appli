@@ -16,7 +16,7 @@ namespace recipe_save
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new title());
         }
     }
 }
