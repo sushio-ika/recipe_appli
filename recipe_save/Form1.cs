@@ -112,8 +112,9 @@ namespace recipe_save
             int width_size = this.Width;
             int height_size = this.Height;
 
-            button1.Location = new Point(width_size / 2 - button1.Width / 2 - 400, height_size / 2 - button1.Height / 2 + 200);
-            dataGridView1.Location = new Point(width_size / 2 - dataGridView1.Width / 2, height_size / 2 - dataGridView1.Height / 2 + 50);
+            button1.Location = new Point(width_size / 12 , height_size /2+button1.Height*2);
+            dataGridView1.Location = new Point(width_size / 3, height_size / 4 );
+            textBox1.Location=new Point(width_size/3, height_size/7);
             Load_RecipeList(dataGridView1);
         }
 

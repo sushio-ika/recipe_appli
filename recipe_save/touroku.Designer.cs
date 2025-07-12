@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(touroku));
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -37,18 +36,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.button2 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("HG丸ｺﾞｼｯｸM-PRO", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button1.Location = new System.Drawing.Point(277, 310);
+            this.button1.Location = new System.Drawing.Point(197, 311);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(257, 93);
+            this.button1.Size = new System.Drawing.Size(406, 48);
             this.button1.TabIndex = 1;
             this.button1.Text = "レシピ登録";
             this.button1.UseVisualStyleBackColor = true;
@@ -56,10 +55,10 @@
             // 
             // textBox1
             // 
-            this.textBox1.Font = new System.Drawing.Font("HG丸ｺﾞｼｯｸM-PRO", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox1.Font = new System.Drawing.Font("HG丸ｺﾞｼｯｸM-PRO", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.textBox1.Location = new System.Drawing.Point(403, 107);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(195, 37);
+            this.textBox1.Size = new System.Drawing.Size(250, 30);
             this.textBox1.TabIndex = 2;
             // 
             // label1
@@ -84,10 +83,10 @@
             // 
             // textBox2
             // 
-            this.textBox2.Font = new System.Drawing.Font("HG丸ｺﾞｼｯｸM-PRO", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox2.Font = new System.Drawing.Font("HG丸ｺﾞｼｯｸM-PRO", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.textBox2.Location = new System.Drawing.Point(403, 205);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(195, 37);
+            this.textBox2.Size = new System.Drawing.Size(195, 30);
             this.textBox2.TabIndex = 4;
             // 
             // label3
@@ -102,27 +101,16 @@
             // 
             // textBox3
             // 
-            this.textBox3.Font = new System.Drawing.Font("HG丸ｺﾞｼｯｸM-PRO", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox3.Font = new System.Drawing.Font("HG丸ｺﾞｼｯｸM-PRO", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.textBox3.Location = new System.Drawing.Point(403, 156);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(84, 37);
+            this.textBox3.Size = new System.Drawing.Size(84, 30);
             this.textBox3.TabIndex = 6;
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "pngファイル|*.png";
-            // 
-            // button2
-            // 
-            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button2.Location = new System.Drawing.Point(478, 248);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(43, 43);
-            this.button2.TabIndex = 9;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // pictureBox1
             // 
@@ -137,7 +125,7 @@
             // 
             // comboBox1
             // 
-            this.comboBox1.Font = new System.Drawing.Font("HG丸ｺﾞｼｯｸM-PRO", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.comboBox1.Font = new System.Drawing.Font("HG丸ｺﾞｼｯｸM-PRO", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "秒",
@@ -146,8 +134,16 @@
             "日"});
             this.comboBox1.Location = new System.Drawing.Point(493, 156);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(105, 38);
+            this.comboBox1.Size = new System.Drawing.Size(105, 31);
             this.comboBox1.TabIndex = 10;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Font = new System.Drawing.Font("HG丸ｺﾞｼｯｸM-PRO", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox4.Location = new System.Drawing.Point(604, 205);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(49, 30);
+            this.textBox4.TabIndex = 11;
             // 
             // touroku
             // 
@@ -155,8 +151,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox3);
@@ -185,7 +181,7 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }

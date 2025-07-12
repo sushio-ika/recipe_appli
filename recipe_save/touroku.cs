@@ -119,7 +119,7 @@ namespace recipe_save
             pictureBox1.ImageLocation = path; //選択した画像のパスをpictureBox1に設定
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        /*private void button2_Click(object sender, EventArgs e)
         {
             TextBox newTextBox = new TextBox();
 
@@ -145,5 +145,11 @@ namespace recipe_save
                 this.ClientSize = new Size(this.ClientSize.Width, newTextBox.Bottom + 10);
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //最近追加したテキストボックスを削除する
+
+        }*/
     }
 }
